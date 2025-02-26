@@ -1,0 +1,1524 @@
+{
+	"info": {
+		"_postman_id": "f2ad7f16-130f-4c64-970a-0ad79cc01372",
+		"name": "QA TESTING Payment Channel Routes(Complete flow)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38162381",
+		"_collection_link": "https://gluon-consulting.postman.co/workspace/Aboitiz-Power-MobileAP~719b6210-b8f4-42e3-855d-efe9811fd703/collection/25732423-f2ad7f16-130f-4c64-970a-0ad79cc01372?action=share&source=collection_link&creator=38162381"
+	},
+	"item": [
+		{
+			"name": "Enable Automation",
+			"item": [
+				{
+					"name": "Login with Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"if (jsonData.response != null) {\r",
+									"    pm.environment.set(\"access_token\", jsonData.response.accessToken);\r",
+									"    pm.environment.set(\"refresh_token\", jsonData.response.refreshToken);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const crypto = require('crypto-js');",
+									"const rawData = pm.request.body.toString();",
+									"const strippedData = rawData.replace(",
+									"    /\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g,",
+									"    (m, g) => g ? \"\" : m",
+									");",
+									"let json = JSON.parse(strippedData);",
+									"let password = json.password;",
+									"let hash = crypto.SHA256(password).toString();",
+									"json.password = hash;",
+									"pm.request.body.raw = JSON.stringify(json);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "login",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{static_token_login}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"azizreg@rover.info\", // (Required) Either filled with username / email address, with same key \"username\"\r\n    \"password\": \"password\", // (Required) \r\n    \"userDevice\": {\r\n        \"type\": \"SmartPhone\", // (Required) SmartPhone / Tablet / Web / Other\r\n        \"model\": \"sdk_gphone_x86_arm\", // (Required) Phone model\r\n        \"deviceIdentifier\": \"11111\", // (Required) Unique string from android / ios SDK\r\n        \"platform\": \"Android\", // (Required) Android / Ios / Api\r\n        \"appVersion\": \"2.3.0+431\", // (Required) Only for analytic purposes\r\n        \"appName\": \"endUser\" // (Required) Hardcoded to \"endUser\" for MobileAP\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/v1/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"login"
+							]
+						},
+						"description": "Login with username (only valid for users before SSO registration was introduced), or email address (for all users)\n\nNote:\n\n1. password will be encrypted before sent (see Pre-request script)\n    \n2. response will be parsed and put into environment variables (see Post-response script)"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"legacyuser0\",\r\n    \"password\": \"123456\",\r\n    \"userDevice\": {\r\n        \"type\": \"SmartPhone\",\r\n        \"model\": \"sdk_gphone_x86_arm\",\r\n        \"deviceIdentifier\": \"11111\",\r\n        \"platform\": \"Android\",\r\n        \"appVersion\": \"2.3.0+431\",\r\n        \"appName\": \"endUser\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/v1/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 10 Jun 2024 03:27:47 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "688"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubdomains; preload"
+								},
+								{
+									"key": "pragma",
+									"value": "no-store"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "server",
+									"value": "conduit/1"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"responder-id\": \"756421c1-1550-4d53-8882-2954c8585a0e_1\",\n    \"responder\": \"APDU MobileAP Service Orchestrator UAT\",\n    \"service-name\": \"LoginWithPasswordImpl\",\n    \"service-version\": \"3.0.0+900\",\n    \"response-timestamp\": \"2024-06-10T03:27:47.496331Z\",\n    \"success\": true,\n    \"response\": {\n        \"accessToken\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpdiI6Imtxam5lSjljeVF5VjF6dCswTldva1E9PSIsInVzZXJJZCI6IlJVQ1dyUm1ZWnNuSzNrS3VrKzRPNEE9PSIsImRldmljZUlkIjoiUm55dnJ4dWFaTXZJM0VDc2tld000Zz09IiwidXNlcm5hbWUiOiJsZWdhY3l1c2VyMCIsImRldmljZVR5cGUiOiJTbWFydFBob25lIiwiZGV2aWNlTW9kZWwiOiJzZGtfZ3Bob25lX3g4Nl9hcm0iLCJkZXZpY2VJZGVudGlmaWVyIjoiazNaRHd3MVZwZkswTVZ4YVNybXQiLCJkZXZpY2VQbGF0Zm9ybSI6IkFuZHJvaWQiLCJhcHBWZXJzaW9uIjoiMi4zLjArNDMxIiwiYXBwTmFtZSI6ImVuZFVzZXIifQ.30C2g8L8BjU5FC3JCX96bMwXKx-qxs_ECECSnDgkzok\",\n        \"validUntil\": \"2024-06-10T03:57:47.433280\",\n        \"refreshToken\": \"tTa2kQfAnrscybr589EFeItF9TNY08CA\",\n        \"securityToken\": \"N/Em/pfve97KTdR07tV0iZl/ebgo9oUfdqsuYu1o1c7YtZTeO8ASKd112PKoZYxg\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Create suspended payment",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Add delay of 5 seconds (5000 milliseconds) between iterations\r",
+									"setTimeout(function() {\r",
+									"}, 5000);  // 5000ms = 5 seconds\r",
+									"\r",
+									"\r",
+									"// Store the data in the collection variable per iteration from json file\r",
+									"pm.collectionVariables.set(\"route_id\", pm.iterationData.get(\"id\"));\r",
+									"pm.collectionVariables.set(\"route_enable\", pm.iterationData.get(\"enabled\"));\r",
+									"pm.collectionVariables.set(\"reason\", pm.iterationData.get(\"reason\"));\r",
+									"pm.collectionVariables.set(\"payment_channel_Code\", pm.iterationData.get(\"paymentChannelCode\"));\r",
+									"pm.collectionVariables.set(\"paymentProviderImplementationVersion\", pm.iterationData.get(\"implementationversion\"));"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the JSON response\r",
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(`Create a suspended payment for before the payment channel disabled`, function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"\r",
+									"    //  Assert the \"success\" field is true\r",
+									"    pm.expect(jsonData.success).to.be.true;\r",
+									"\r",
+									"    // Assert \"transaction-id\" exists and is not empty\r",
+									"    pm.expect(jsonData.response[\"transaction-id\"]).to.be.a('string').and.not.be.empty;\r",
+									"\r",
+									"    // Assert that \"du-code\" in response is correct\r",
+									"    pm.expect(jsonData.response[\"du-code\"]).to.eql(\"VECO\");\r",
+									"\r",
+									"    // Assert that \"paymentChannelImplementationVersion\" in response is correct\r",
+									"    let paymentProvider = jsonData.response[\"payment-provider\"];\r",
+									"    let implementationVersion = paymentProvider[\"implementation-version\"];\r",
+									"    console.log(implementationVersion);\r",
+									"    console.log(implementationVersion.toString());\r",
+									"    let PaymentChannel = pm.collectionVariables.get(\"payment_channel_Code\");\r",
+									"    if(PaymentChannel === \"BPIA\" || PaymentChannel === \"UBPB\"){\r",
+									"        //should be equals to 2 since it was using BUX as a default payment provider\r",
+									"        pm.expect(implementationVersion.toString()).to.eql(\"2\");\r",
+									"    }else{\r",
+									"        console.log(pm.collectionVariables.get(\"paymentProviderImplementationVersion\"));\r",
+									"        pm.expect(implementationVersion.toString()).to.eql(pm.collectionVariables.get(\"paymentProviderImplementationVersion\"));\r",
+									"    }\r",
+									"    // Assert that \"du-account-number\" in response is correct\r",
+									"    pm.expect(jsonData.response[\"du-account-number\"]).to.eql(\"52557000008\");\r",
+									"    \r",
+									"    \r",
+									"    //set the user flow url\r",
+									"    pm.collectionVariables.set(\"PaymentURL\", jsonData.response[\"user-flow-url\"]);\r",
+									"\r",
+									"\r",
+									"    // Assert \"user-flow-url\" starts with https\r",
+									"    pm.expect(jsonData.response[\"user-flow-url\"].startsWith(\"https\")).to.be.true;\r",
+									"\r",
+									"    // Set \"transaction-id\" as a collection variable\r",
+									"    pm.collectionVariables.set(\"TransactionID\", jsonData.response[\"transaction-id\"]);\r",
+									"    console.log(pm.collectionVariables.get(\"TransactionID\"));\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"duCode\": \"VECO\",\r\n    \"accountNumber\": \"52557000008\",\r\n    \"amount\": \"100\",\r\n    \"paymentChannelCode\": \"{{payment_channel_Code}}\",\r\n    \"paymentChannelImplementationVersion\": \"1\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/v2/e-payment/channel/pay",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v2",
+								"e-payment",
+								"channel",
+								"pay"
+							]
+						},
+						"description": "Pay using bank online"
+					},
+					"response": [
+						{
+							"name": "Failed: Payment Already Started",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"duCode\": \"VECO\",\r\n    \"accountNumber\": \"99555155706\",\r\n    \"amount\": \"50\",\r\n    \"channel\": \"BPIA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/v1/e-payment/channel/pay",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"e-payment",
+										"channel",
+										"pay"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "291"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "server",
+									"value": "conduit/1"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"responder-id\": \"945dc32e-6eb4-48f2-bdbf-1bc8bb006535_1\",\n    \"responder\": \"APDU MobileAP Service Orchestrator UAT\",\n    \"service-name\": \"payBillFromChannel\",\n    \"service-version\": \"2.2.0+318\",\n    \"response-timestamp\": \"2022-08-08T07:47:44.849238Z\",\n    \"success\": false,\n    \"error\": {\n        \"message\": \"An existing payment transaction has already been started. Please complete the pending transaction before creating a new one.\"\n    }\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"duCode\": \"VECO\",\r\n    \"accountNumber\": \"99555155706\",\r\n    \"amount\": \"50\",\r\n    \"channel\": \"BPIA\",\r\n    \"providerCode\": \"BUX\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/v1/e-payment/channel/pay",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"e-payment",
+										"channel",
+										"pay"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "https://mobileap.aboitizpower.com"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "677"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubdomains; preload"
+								},
+								{
+									"key": "pragma",
+									"value": "no-store"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "server",
+									"value": "conduit/1"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"responder-id\": \"9e93a427-94cc-40f0-9762-889be9ab0b22_1\",\n    \"responder\": \"APDU MobileAP Service Orchestrator UAT\",\n    \"service-name\": \"payBillFromChannel\",\n    \"service-version\": \"2.2.0+318\",\n    \"response-timestamp\": \"2022-11-24T04:36:54.594048Z\",\n    \"success\": true,\n    \"response\": {\n        \"id\": \"308\",\n        \"paymentId\": \"\",\n        \"duCode\": \"VECO\",\n        \"accountNumber\": \"99555155706\",\n        \"orNumber\": \"\",\n        \"paymentAmount\": \"50\",\n        \"providerFee\": \"15\",\n        \"paymentAgent\": \"BUX\",\n        \"paymentBranch\": \"BPIA\",\n        \"paymentMadeDate\": \"2022-11-24T04:36:51.521014Z\",\n        \"paymentProcessedDate\": null,\n        \"paymentStatus\": \"started\",\n        \"paymentType\": \"checkoutUrl\",\n        \"requestId\": \"f0f4e0dc-5067-431c-9689-4990d2f08fe9\",\n        \"refCode\": \"BPIA86554\",\n        \"urlExpiredDate\": \"2022-11-24T04:46:54.373123Z\",\n        \"paymentUrl\": \"https://app.bux.ph/test/bux_payment/0d6eb0d17c3e4692b940a1386ddd5ec0\",\n        \"checkUrl\": \"https://app.bux.ph/test/payment/0d6eb0d17c3e4692b940a1386ddd5ec0/\",\n        \"userGenerator\": {\n            \"id\": 11,\n            \"username\": \"ihutef\",\n            \"firstName\": \"John\",\n            \"middleNameInitial\": \"M\",\n            \"lastName\": \"Doe\",\n            \"gender\": \"Male\",\n            \"dateOfBirth\": \"1990-07-01T00:00:00.000Z\",\n            \"profilePicture\": \"\",\n            \"isActive\": true,\n            \"pinDigitCount\": 6,\n            \"walletEmail\": \"ihutef_11@mobileap.integration\",\n            \"createdTimestamp\": \"2022-10-31T06:03:05.445812Z\",\n            \"lastModifiedTimestamp\": \"2022-11-16T04:28:10.811614Z\"\n        },\n        \"lastModifiedTimestamp\": \"2022-11-24T04:36:51.521014Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Disable payment channel",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"route_id\", pm.iterationData.get(\"id\"));\r",
+									"pm.collectionVariables.set(\"route_enable\", Boolean(pm.iterationData.get(\"enabled\"))); //convert string to boolean"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"id\": {{route_id}},\r\n        \"enabled\": {{route_enable}}\r\n    }\r\n    \r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{paymentgateway}}/v1/paymentchannelroutes/setstates",
+							"host": [
+								"{{paymentgateway}}"
+							],
+							"path": [
+								"v1",
+								"paymentchannelroutes",
+								"setstates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check payment channel status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"const jsonData = pm.response.json();\r",
+									"const selectedId = pm.request.url.query.find(param => param.key === 'id')?.value;\r",
+									"\r",
+									"let routeEnableValue = pm.collectionVariables.get(\"route_enable\");\r",
+									"let routeEnableBoolean = (routeEnableValue === 'true' || routeEnableValue === '1');\r",
+									"\r",
+									"if (!selectedId) {\r",
+									"    pm.expect.fail(\"ID parameter not found in the request\");\r",
+									"} else {\r",
+									"    const id = parseInt(selectedId, 10);\r",
+									"    const item = jsonData.response; \r",
+									"\r",
+									"    if (!item) {\r",
+									"        pm.expect.fail(`ID ${id} not found in the response`);\r",
+									"    } else {\r",
+									"        console.log(\"Response:\", jsonData);  // Log the response to check its structure\r",
+									"        \r",
+									"        // Validate properties for the selected ID dynamically\r",
+									"        pm.test(`Validate response for ID ${id}`, function () {\r",
+									"            switch (id) {\r",
+									"                case 1:\r",
+									"\r",
+									"                    pm.expect(item.key).to.eql(\"BDOU/1>PMG/1\");  // Validate 'key' inside 'response'\r",
+									"                    pm.expect(item.enabled).to.eql(routeEnableBoolean);//check if the payment channel status is the same with the set status from json file\r",
+									"                    pm.expect(item[\"payment-channel\"].id).to.eql(\"BDOU\");\r",
+									"                    pm.expect(item[\"payment-provider\"].name).to.eql(\"PayMongo\");\r",
+									"                    pm.expect(item[\"priority-index\"]).to.eql(1);\r",
+									"                    pm.expect(item.configuration[\"min-payment-amount-before-fees\"]).to.eql(\"100\");\r",
+									"                    pm.expect(item.configuration[\"max-payment-amount-before-fees\"]).to.eql(\"50000\");\r",
+									"                    pm.expect(item.configuration[\"fee-structure\"].bands[0]).to.include({\r",
+									"                        \"from-amount\": 0,\r",
+									"                        \"type\": \"Fixed\",\r",
+									"                        \"value\": 7,\r",
+									"                        \"round-to-digits\": 2,\r",
+									"                        \"currency\": \"PHP\"\r",
+									"                    });\r",
+									"                    break;\r",
+									"                    \r",
+									"                case 2:\r",
+									"\r",
+									"                    pm.expect(item.key).to.eql(\"BPIA/1>BUX/2\");  // Validate 'key' inside 'response'\r",
+									"                     pm.expect(item.enabled).to.eql(routeEnableBoolean);\r",
+									"                    pm.expect(item[\"payment-channel\"].id).to.eql(\"BPIA\");\r",
+									"                    pm.expect(item[\"payment-provider\"].name).to.eql(\"BUX\");\r",
+									"                    pm.expect(item[\"priority-index\"]).to.eql(1);\r",
+									"                    pm.expect(item.configuration[\"min-payment-amount-before-fees\"]).to.eql(\"100\");\r",
+									"                    pm.expect(item.configuration[\"max-payment-amount-before-fees\"]).to.eql(\"50000\");\r",
+									"                    pm.expect(item.configuration[\"fee-structure\"].bands[0]).to.include({\r",
+									"                        \"from-amount\": 0,\r",
+									"                        \"type\": \"Fixed\",\r",
+									"                        \"value\": 5,\r",
+									"                        \"round-to-digits\": 2,\r",
+									"                        \"currency\": \"PHP\"\r",
+									"                    });\r",
+									"                    break;\r",
+									"\r",
+									"\r",
+									"                case 3:\r",
+									"\r",
+									"                    pm.expect(item.key).to.eql(\"BPIA/1>PMG/1\");  // Validate 'key' inside 'response\r",
+									"                    pm.expect(item.enabled).to.eql(routeEnableBoolean);\r",
+									"                    pm.expect(item[\"payment-channel\"].id).to.eql(\"BPIA\");\r",
+									"                    pm.expect(item[\"payment-provider\"].name).to.eql(\"PayMongo\");\r",
+									"                    pm.expect(item[\"priority-index\"]).to.eql(2);\r",
+									"                    pm.expect(item.configuration[\"min-payment-amount-before-fees\"]).to.eql(\"100\");\r",
+									"                    pm.expect(item.configuration[\"max-payment-amount-before-fees\"]).to.eql(\"50000\");\r",
+									"                    pm.expect(item.configuration[\"fee-structure\"].bands[0]).to.include({\r",
+									"                        \"from-amount\": 0,\r",
+									"                        \"type\": \"Fixed\",\r",
+									"                        \"value\": 7,\r",
+									"                        \"round-to-digits\": 2,\r",
+									"                        \"currency\": \"PHP\"\r",
+									"                    });\r",
+									"                    break;\r",
+									"\r",
+									"                case 4:\r",
+									"\r",
+									"                    pm.expect(item.key).to.eql(\"GCSH/1>PMG/1\");  // Validate 'key' inside 'response'\r",
+									"                    pm.expect(item.enabled).to.eql(routeEnableBoolean);\r",
+									"                    pm.expect(item[\"payment-channel\"].id).to.eql(\"GCSH\");\r",
+									"                    pm.expect(item[\"payment-provider\"].name).to.eql(\"PayMongo\");\r",
+									"                    pm.expect(item[\"priority-index\"]).to.eql(1);\r",
+									"                    pm.expect(item.configuration[\"min-payment-amount-before-fees\"]).to.eql(\"100\");\r",
+									"                    pm.expect(item.configuration[\"max-payment-amount-before-fees\"]).to.eql(\"50000\");\r",
+									"                    pm.expect(item.configuration[\"fee-structure\"].bands[0]).to.include({\r",
+									"                        \"from-amount\": 0,\r",
+									"                        \"type\": \"Fixed\",\r",
+									"                        \"value\": 30,\r",
+									"                        \"round-to-digits\": 2,\r",
+									"                        \"currency\": \"PHP\"\r",
+									"                    });\r",
+									"                    break;\r",
+									"\r",
+									"                case 5:\r",
+									"\r",
+									"                    pm.expect(item.key).to.eql(\"LBPH/1>PMG/1\");  // Validate 'key' inside 'response'\r",
+									"                    pm.expect(item.enabled).to.eql(routeEnableBoolean);\r",
+									"                    pm.expect(item[\"payment-channel\"].id).to.eql(\"LBPH\");\r",
+									"                    pm.expect(item[\"payment-provider\"].name).to.eql(\"PayMongo\");\r",
+									"                    pm.expect(item[\"priority-index\"]).to.eql(1);\r",
+									"                    pm.expect(item.configuration[\"min-payment-amount-before-fees\"]).to.eql(\"100\");\r",
+									"                    pm.expect(item.configuration[\"max-payment-amount-before-fees\"]).to.eql(\"50000\");\r",
+									"                    pm.expect(item.configuration[\"fee-structure\"].bands[0]).to.include({\r",
+									"                        \"from-amount\": 0,\r",
+									"                        \"type\": \"Fixed\",\r",
+									"                        \"value\": 7,\r",
+									"                        \"round-to-digits\": 2,\r",
+									"                        \"currency\": \"PHP\"\r",
+									"                    });\r",
+									"                    break;\r",
+									"\r",
+									"                case 6:\r",
+									"\r",
+									"                    pm.expect(item.key).to.eql(\"MAYA/1>DPY/1\");  // Validate 'key' inside 'response'\r",
+									"                     pm.expect(item.enabled).to.eql(routeEnableBoolean);\r",
+									"                    pm.expect(item[\"payment-channel\"].id).to.eql(\"MAYA\");\r",
+									"                    pm.expect(item[\"payment-provider\"].name).to.eql(\"DragonPay\");\r",
+									"                    pm.expect(item[\"priority-index\"]).to.eql(1);\r",
+									"                    pm.expect(item.configuration[\"min-payment-amount-before-fees\"]).to.eql(\"100\");\r",
+									"                    pm.expect(item.configuration[\"max-payment-amount-before-fees\"]).to.eql(\"50000\");\r",
+									"                    pm.expect(item.configuration[\"fee-structure\"].bands[0]).to.include({\r",
+									"                        \"from-amount\": 0,\r",
+									"                        \"type\": \"Fixed\",\r",
+									"                        \"value\": 10,\r",
+									"                        \"round-to-digits\": 2,\r",
+									"                        \"currency\": \"PHP\"\r",
+									"                    });\r",
+									"                    break;\r",
+									"\r",
+									"                case 7:\r",
+									"\r",
+									"                    pm.expect(item.key).to.eql(\"MBTC/1>PMG/1\");  // Validate 'key' inside 'response'\r",
+									"                    pm.expect(item.enabled).to.eql(routeEnableBoolean);\r",
+									"                    pm.expect(item[\"payment-channel\"].id).to.eql(\"MBTC\");\r",
+									"                    pm.expect(item[\"payment-provider\"].name).to.eql(\"PayMongo\");\r",
+									"                    pm.expect(item[\"priority-index\"]).to.eql(1);\r",
+									"                    pm.expect(item.configuration[\"min-payment-amount-before-fees\"]).to.eql(\"100\");\r",
+									"                    pm.expect(item.configuration[\"max-payment-amount-before-fees\"]).to.eql(\"50000\");\r",
+									"                    pm.expect(item.configuration[\"fee-structure\"].bands[0]).to.include({\r",
+									"                        \"from-amount\": 0,\r",
+									"                        \"type\": \"Fixed\",\r",
+									"                        \"value\": 7,\r",
+									"                        \"round-to-digits\": 2,\r",
+									"                        \"currency\": \"PHP\"\r",
+									"                    });\r",
+									"                    break;\r",
+									"\r",
+									"                case 8:\r",
+									"                    pm.expect(item.key).to.eql(\"RCBC/1>BUX/2\");  // Validate 'key' inside 'response'\r",
+									"                    pm.expect(item.enabled).to.eql(routeEnableBoolean);\r",
+									"                    pm.expect(item[\"payment-channel\"].id).to.eql(\"RCBC\");\r",
+									"                    pm.expect(item[\"payment-provider\"].name).to.eql(\"BUX\");\r",
+									"                    pm.expect(item[\"priority-index\"]).to.eql(1);\r",
+									"                    pm.expect(item.configuration[\"min-payment-amount-before-fees\"]).to.eql(\"100\");\r",
+									"                    pm.expect(item.configuration[\"max-payment-amount-before-fees\"]).to.eql(\"50000\");\r",
+									"                    pm.expect(item.configuration[\"fee-structure\"].bands[0]).to.include({\r",
+									"                        \"from-amount\": 0,\r",
+									"                        \"type\": \"Fixed\",\r",
+									"                        \"value\": 5,\r",
+									"                        \"round-to-digits\": 2,\r",
+									"                        \"currency\": \"PHP\"\r",
+									"                    });\r",
+									"                    break;\r",
+									"\r",
+									"                 case 9:\r",
+									"\r",
+									"                    pm.expect(item.key).to.eql(\"UBPB/1>BUX/2\");  // Validate 'key' inside 'response'\r",
+									"                   pm.expect(item.enabled).to.eql(routeEnableBoolean);\r",
+									"                    pm.expect(item[\"payment-channel\"].id).to.eql(\"UBPB\");\r",
+									"                    pm.expect(item[\"payment-provider\"].name).to.eql(\"BUX\");\r",
+									"                    pm.expect(item[\"priority-index\"]).to.eql(1);\r",
+									"                    pm.expect(item.configuration[\"min-payment-amount-before-fees\"]).to.eql(\"100\");\r",
+									"                    pm.expect(item.configuration[\"max-payment-amount-before-fees\"]).to.eql(\"80000\");\r",
+									"                    pm.expect(item.configuration[\"fee-structure\"].bands[0]).to.include({\r",
+									"                        \"from-amount\": 0,\r",
+									"                        \"type\": \"Fixed\",\r",
+									"                        \"value\": 5,\r",
+									"                        \"round-to-digits\": 2,\r",
+									"                        \"currency\": \"PHP\"\r",
+									"                    });\r",
+									"                    break;\r",
+									"\r",
+									"                case 10:\r",
+									"                    \r",
+									"                    pm.expect(item.key).to.eql(\"UBPB/1>PMG/1\");  // Validate 'key' inside 'response'\r",
+									"                    pm.expect(item.enabled).to.eql(routeEnableBoolean);\r",
+									"                    pm.expect(item[\"payment-channel\"].id).to.eql(\"UBPB\");\r",
+									"                    pm.expect(item[\"payment-provider\"].name).to.eql(\"PayMongo\");\r",
+									"                    pm.expect(item[\"priority-index\"]).to.eql(2);\r",
+									"                    pm.expect(item.configuration[\"min-payment-amount-before-fees\"]).to.eql(\"100\");\r",
+									"                    pm.expect(item.configuration[\"max-payment-amount-before-fees\"]).to.eql(\"80000\");\r",
+									"                    pm.expect(item.configuration[\"fee-structure\"].bands[0]).to.include({\r",
+									"                        \"from-amount\": 0,\r",
+									"                        \"type\": \"Fixed\",\r",
+									"                        \"value\": 7,\r",
+									"                        \"round-to-digits\": 2,\r",
+									"                        \"currency\": \"PHP\"\r",
+									"                    });\r",
+									"                    break;\r",
+									"           \r",
+									"                default:\r",
+									"                    pm.expect.fail(`No validation defined for ID ${id}`);\r",
+									"            }\r",
+									"        });\r",
+									"    }\r",
+									"}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{paymentgateway}}/v1/paymentchannelroute?id={{route_id}}",
+							"host": [
+								"{{paymentgateway}}"
+							],
+							"path": [
+								"v1",
+								"paymentchannelroute"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{route_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cancel suspended payment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"pm.test(`End user successfully cancel suspended payment`, function (){\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"\r",
+							"    pm.expect(jsonData.success).to.be.true;\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"{{TransactionID}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/e-payment/cancel",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"e-payment",
+						"cancel"
+					]
+				},
+				"description": "This API is for canceling e-payment that was created before"
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1730\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/v1/e-payment/cancel",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"e-payment",
+								"cancel"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "cache-control",
+							"value": "no-store"
+						},
+						{
+							"key": "access-control-allow-origin",
+							"value": "*"
+						},
+						{
+							"key": "content-encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "content-length",
+							"value": "494"
+						},
+						{
+							"key": "strict-transport-security",
+							"value": "max-age=31536000; includeSubdomains; preload"
+						},
+						{
+							"key": "pragma",
+							"value": "no-store"
+						},
+						{
+							"key": "x-frame-options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "x-xss-protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "x-content-type-options",
+							"value": "nosniff"
+						},
+						{
+							"key": "server",
+							"value": "conduit/1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"responder-id\": \"ea54bda0-7a29-4775-b871-d170cce46482_1\",\n    \"responder\": \"APDU MobileAP Service Orchestrator UAT\",\n    \"service-name\": \"cancelEPayment\",\n    \"service-version\": \"2.3.0+354\",\n    \"response-timestamp\": \"2023-02-16T01:41:39.273421Z\",\n    \"success\": true,\n    \"response\": {\n        \"id\": \"1730\",\n        \"paymentId\": \"\",\n        \"duCode\": \"VECO\",\n        \"accountNumber\": \"99555155706\",\n        \"orNumber\": \"\",\n        \"paymentAmount\": \"50\",\n        \"providerFee\": \"15\",\n        \"paymentAgent\": \"UBX\",\n        \"paymentBranch\": \"BPIA\",\n        \"paymentMadeDate\": \"2023-02-16T01:41:28.469815Z\",\n        \"paymentProcessedDate\": null,\n        \"paymentStatus\": \"canceled\",\n        \"paymentType\": \"checkoutUrl\",\n        \"requestId\": \"BUX_BPIAA9E61C0D31BA4FE3B4C5AAD9560FE937\",\n        \"refCode\": \"BPIA92097\",\n        \"urlExpiredDate\": \"2023-02-16T01:51:32.549508Z\",\n        \"paymentUrl\": \"https://app.bux.ph/test/bux_payment/440194d0ccbc4cff8924899c81b3a613\",\n        \"checkUrl\": \"https://app.bux.ph/test/payment/440194d0ccbc4cff8924899c81b3a613/\",\n        \"userGenerator\": null\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Create new payment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the JSON response\r",
+							"const jsonData = pm.response.json();\r",
+							"\r",
+							"let PaymentChannel = pm.collectionVariables.get(\"payment_channel_Code\");\r",
+							"var ProviderimplementationVersion;\r",
+							"var paymentProviderName;\r",
+							"if(PaymentChannel === \"BPIA\" || PaymentChannel === \"UBPB\"){\r",
+							"    \r",
+							"    if(pm.collectionVariables.get(\"paymentProviderImplementationVersion\") === \"1\"){\r",
+							"        // If paymongo disabled then should be able to pay through bux\r",
+							"        paymentProviderName = \"Bux\";\r",
+							"        // and should be using Bux implementation version as well\r",
+							"        ProviderimplementationVersion = \"2\";\r",
+							"    }else if(pm.collectionVariables.get(\"paymentProviderImplementationVersion\") === \"2\"){\r",
+							"        // If bux disabled then should be able to pay through Paymongo\r",
+							"        paymentProviderName = \"Paymongo\";\r",
+							"        // and should be using Paymongo implementation version as well\r",
+							"        ProviderimplementationVersion = \"1\";\r",
+							"    }\r",
+							"    pm.test(`End user can pay through ${paymentProviderName}`, function () {\r",
+							"        pm.expect(pm.response.code).to.eql(200);\r",
+							"\r",
+							"        //  Assert the \"success\" field is true\r",
+							"        pm.expect(jsonData.success).to.be.true;\r",
+							"        \r",
+							"        let paymentProvider = jsonData.response[\"payment-provider\"];\r",
+							"        let implementationVersion = paymentProvider[\"implementation-version\"];\r",
+							"        pm.expect(implementationVersion.toString()).to.eql(ProviderimplementationVersion);\r",
+							"    })\r",
+							"    \r",
+							"    \r",
+							"}else{\r",
+							"    pm.test(`End user mustn't be able to create a new payment for ${pm.collectionVariables.get(\"reason\")}`, function () {\r",
+							"        pm.expect(pm.response.code).to.eql(400);\r",
+							"\r",
+							"        //  Assert the \"success\" field is true\r",
+							"        pm.expect(jsonData.success).to.be.false;\r",
+							"    })\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Add delay of 5 seconds (5000 milliseconds) between iterations\r",
+							"setTimeout(function() {\r",
+							"}, 5000);  // 5000ms = 5 seconds\r",
+							"\r",
+							"\r",
+							"// Store the data in the collection variable per iteration from json file\r",
+							"pm.collectionVariables.set(\"route_id\", pm.iterationData.get(\"id\"));\r",
+							"pm.collectionVariables.set(\"route_enable\", pm.iterationData.get(\"enabled\"));\r",
+							"pm.collectionVariables.set(\"reason\", pm.iterationData.get(\"reason\"));\r",
+							"pm.collectionVariables.set(\"payment_channel_Code\", pm.iterationData.get(\"paymentChannelCode\"));\r",
+							"pm.collectionVariables.set(\"paymentProviderImplementationVersion\", pm.iterationData.get(\"implementationversion\"));"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"duCode\": \"VECO\",\r\n    \"accountNumber\": \"52557000008\",\r\n    \"amount\": \"100\",\r\n    \"paymentChannelCode\": \"{{payment_channel_Code}}\",\r\n    \"paymentChannelImplementationVersion\": \"1\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/e-payment/channel/pay",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"e-payment",
+						"channel",
+						"pay"
+					]
+				},
+				"description": "Pay using bank online"
+			},
+			"response": [
+				{
+					"name": "Failed: Payment Already Started",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"duCode\": \"VECO\",\r\n    \"accountNumber\": \"99555155706\",\r\n    \"amount\": \"50\",\r\n    \"channel\": \"BPIA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/v1/e-payment/channel/pay",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"e-payment",
+								"channel",
+								"pay"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "content-encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "content-length",
+							"value": "291"
+						},
+						{
+							"key": "x-frame-options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "x-xss-protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "x-content-type-options",
+							"value": "nosniff"
+						},
+						{
+							"key": "server",
+							"value": "conduit/1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"responder-id\": \"945dc32e-6eb4-48f2-bdbf-1bc8bb006535_1\",\n    \"responder\": \"APDU MobileAP Service Orchestrator UAT\",\n    \"service-name\": \"payBillFromChannel\",\n    \"service-version\": \"2.2.0+318\",\n    \"response-timestamp\": \"2022-08-08T07:47:44.849238Z\",\n    \"success\": false,\n    \"error\": {\n        \"message\": \"An existing payment transaction has already been started. Please complete the pending transaction before creating a new one.\"\n    }\n}"
+				},
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"duCode\": \"VECO\",\r\n    \"accountNumber\": \"99555155706\",\r\n    \"amount\": \"50\",\r\n    \"channel\": \"BPIA\",\r\n    \"providerCode\": \"BUX\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/v1/e-payment/channel/pay",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"e-payment",
+								"channel",
+								"pay"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "cache-control",
+							"value": "no-store"
+						},
+						{
+							"key": "access-control-allow-origin",
+							"value": "https://mobileap.aboitizpower.com"
+						},
+						{
+							"key": "content-encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "content-length",
+							"value": "677"
+						},
+						{
+							"key": "strict-transport-security",
+							"value": "max-age=31536000; includeSubdomains; preload"
+						},
+						{
+							"key": "pragma",
+							"value": "no-store"
+						},
+						{
+							"key": "x-frame-options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "x-xss-protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "x-content-type-options",
+							"value": "nosniff"
+						},
+						{
+							"key": "server",
+							"value": "conduit/1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"responder-id\": \"9e93a427-94cc-40f0-9762-889be9ab0b22_1\",\n    \"responder\": \"APDU MobileAP Service Orchestrator UAT\",\n    \"service-name\": \"payBillFromChannel\",\n    \"service-version\": \"2.2.0+318\",\n    \"response-timestamp\": \"2022-11-24T04:36:54.594048Z\",\n    \"success\": true,\n    \"response\": {\n        \"id\": \"308\",\n        \"paymentId\": \"\",\n        \"duCode\": \"VECO\",\n        \"accountNumber\": \"99555155706\",\n        \"orNumber\": \"\",\n        \"paymentAmount\": \"50\",\n        \"providerFee\": \"15\",\n        \"paymentAgent\": \"BUX\",\n        \"paymentBranch\": \"BPIA\",\n        \"paymentMadeDate\": \"2022-11-24T04:36:51.521014Z\",\n        \"paymentProcessedDate\": null,\n        \"paymentStatus\": \"started\",\n        \"paymentType\": \"checkoutUrl\",\n        \"requestId\": \"f0f4e0dc-5067-431c-9689-4990d2f08fe9\",\n        \"refCode\": \"BPIA86554\",\n        \"urlExpiredDate\": \"2022-11-24T04:46:54.373123Z\",\n        \"paymentUrl\": \"https://app.bux.ph/test/bux_payment/0d6eb0d17c3e4692b940a1386ddd5ec0\",\n        \"checkUrl\": \"https://app.bux.ph/test/payment/0d6eb0d17c3e4692b940a1386ddd5ec0/\",\n        \"userGenerator\": {\n            \"id\": 11,\n            \"username\": \"ihutef\",\n            \"firstName\": \"John\",\n            \"middleNameInitial\": \"M\",\n            \"lastName\": \"Doe\",\n            \"gender\": \"Male\",\n            \"dateOfBirth\": \"1990-07-01T00:00:00.000Z\",\n            \"profilePicture\": \"\",\n            \"isActive\": true,\n            \"pinDigitCount\": 6,\n            \"walletEmail\": \"ihutef_11@mobileap.integration\",\n            \"createdTimestamp\": \"2022-10-31T06:03:05.445812Z\",\n            \"lastModifiedTimestamp\": \"2022-11-16T04:28:10.811614Z\"\n        },\n        \"lastModifiedTimestamp\": \"2022-11-24T04:36:51.521014Z\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Enable payment channel",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"route_id\", pm.iterationData.get(\"id\"));\r",
+							"let routeEnabled = true;\r",
+							"pm.collectionVariables.set(\"route_enable\", routeEnabled); //convert string to boolean\r",
+							"console.log(pm.collectionVariables.get(\"route_enable\"));"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"id\": {{route_id}},\r\n        \"enabled\": {{route_enable}}\r\n    }\r\n    \r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{paymentgateway}}/v1/paymentchannelroutes/setstates",
+					"host": [
+						"{{paymentgateway}}"
+					],
+					"path": [
+						"v1",
+						"paymentchannelroutes",
+						"setstates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check payment channel status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"const selectedId = pm.request.url.query.find(param => param.key === 'id')?.value;\r",
+							"\r",
+							"let routeEnableValue = pm.collectionVariables.get(\"route_enable\");\r",
+							"console.log(routeEnableValue);\r",
+							"let routeEnableBoolean = (routeEnableValue === true);\r",
+							"\r",
+							"if (!selectedId) {\r",
+							"    pm.expect.fail(\"ID parameter not found in the request\");\r",
+							"} else {\r",
+							"    const id = parseInt(selectedId, 10);\r",
+							"    const item = jsonData.response; \r",
+							"\r",
+							"    if (!item) {\r",
+							"        pm.expect.fail(`ID ${id} not found in the response`);\r",
+							"    } else {\r",
+							"        console.log(\"Response:\", jsonData);  // Log the response to check its structure\r",
+							"        \r",
+							"        // Validate properties for the selected ID dynamically\r",
+							"        pm.test(`Validate response for ID ${id}`, function () {\r",
+							"            switch (id) {\r",
+							"                case 1:\r",
+							"\r",
+							"                    pm.expect(item.key).to.eql(\"BDOU/1>PMG/1\");  // Validate 'key' inside 'response'\r",
+							"                    pm.expect(item.enabled).to.eql(routeEnableBoolean);//check if the payment channel status is the same with the set status from json file\r",
+							"                    pm.expect(item[\"payment-channel\"].id).to.eql(\"BDOU\");\r",
+							"                    pm.expect(item[\"payment-provider\"].name).to.eql(\"PayMongo\");\r",
+							"                    pm.expect(item[\"priority-index\"]).to.eql(1);\r",
+							"                    pm.expect(item.configuration[\"min-payment-amount-before-fees\"]).to.eql(\"100\");\r",
+							"                    pm.expect(item.configuration[\"max-payment-amount-before-fees\"]).to.eql(\"50000\");\r",
+							"                    pm.expect(item.configuration[\"fee-structure\"].bands[0]).to.include({\r",
+							"                        \"from-amount\": 0,\r",
+							"                        \"type\": \"Fixed\",\r",
+							"                        \"value\": 7,\r",
+							"                        \"round-to-digits\": 2,\r",
+							"                        \"currency\": \"PHP\"\r",
+							"                    });\r",
+							"                    break;\r",
+							"                    \r",
+							"                case 2:\r",
+							"\r",
+							"                    pm.expect(item.key).to.eql(\"BPIA/1>BUX/2\");  // Validate 'key' inside 'response'\r",
+							"                     pm.expect(item.enabled).to.eql(routeEnableBoolean);\r",
+							"                    pm.expect(item[\"payment-channel\"].id).to.eql(\"BPIA\");\r",
+							"                    pm.expect(item[\"payment-provider\"].name).to.eql(\"BUX\");\r",
+							"                    pm.expect(item[\"priority-index\"]).to.eql(1);\r",
+							"                    pm.expect(item.configuration[\"min-payment-amount-before-fees\"]).to.eql(\"100\");\r",
+							"                    pm.expect(item.configuration[\"max-payment-amount-before-fees\"]).to.eql(\"50000\");\r",
+							"                    pm.expect(item.configuration[\"fee-structure\"].bands[0]).to.include({\r",
+							"                        \"from-amount\": 0,\r",
+							"                        \"type\": \"Fixed\",\r",
+							"                        \"value\": 5,\r",
+							"                        \"round-to-digits\": 2,\r",
+							"                        \"currency\": \"PHP\"\r",
+							"                    });\r",
+							"                    break;\r",
+							"\r",
+							"\r",
+							"                case 3:\r",
+							"\r",
+							"                    pm.expect(item.key).to.eql(\"BPIA/1>PMG/1\");  // Validate 'key' inside 'response\r",
+							"                    pm.expect(item.enabled).to.eql(routeEnableBoolean);\r",
+							"                    pm.expect(item[\"payment-channel\"].id).to.eql(\"BPIA\");\r",
+							"                    pm.expect(item[\"payment-provider\"].name).to.eql(\"PayMongo\");\r",
+							"                    pm.expect(item[\"priority-index\"]).to.eql(2);\r",
+							"                    pm.expect(item.configuration[\"min-payment-amount-before-fees\"]).to.eql(\"100\");\r",
+							"                    pm.expect(item.configuration[\"max-payment-amount-before-fees\"]).to.eql(\"50000\");\r",
+							"                    pm.expect(item.configuration[\"fee-structure\"].bands[0]).to.include({\r",
+							"                        \"from-amount\": 0,\r",
+							"                        \"type\": \"Fixed\",\r",
+							"                        \"value\": 7,\r",
+							"                        \"round-to-digits\": 2,\r",
+							"                        \"currency\": \"PHP\"\r",
+							"                    });\r",
+							"                    break;\r",
+							"\r",
+							"                case 4:\r",
+							"\r",
+							"                    pm.expect(item.key).to.eql(\"GCSH/1>PMG/1\");  // Validate 'key' inside 'response'\r",
+							"                    pm.expect(item.enabled).to.eql(routeEnableBoolean);\r",
+							"                    pm.expect(item[\"payment-channel\"].id).to.eql(\"GCSH\");\r",
+							"                    pm.expect(item[\"payment-provider\"].name).to.eql(\"PayMongo\");\r",
+							"                    pm.expect(item[\"priority-index\"]).to.eql(1);\r",
+							"                    pm.expect(item.configuration[\"min-payment-amount-before-fees\"]).to.eql(\"100\");\r",
+							"                    pm.expect(item.configuration[\"max-payment-amount-before-fees\"]).to.eql(\"50000\");\r",
+							"                    pm.expect(item.configuration[\"fee-structure\"].bands[0]).to.include({\r",
+							"                        \"from-amount\": 0,\r",
+							"                        \"type\": \"Fixed\",\r",
+							"                        \"value\": 30,\r",
+							"                        \"round-to-digits\": 2,\r",
+							"                        \"currency\": \"PHP\"\r",
+							"                    });\r",
+							"                    break;\r",
+							"\r",
+							"                case 5:\r",
+							"\r",
+							"                    pm.expect(item.key).to.eql(\"LBPH/1>PMG/1\");  // Validate 'key' inside 'response'\r",
+							"                    pm.expect(item.enabled).to.eql(routeEnableBoolean);\r",
+							"                    pm.expect(item[\"payment-channel\"].id).to.eql(\"LBPH\");\r",
+							"                    pm.expect(item[\"payment-provider\"].name).to.eql(\"PayMongo\");\r",
+							"                    pm.expect(item[\"priority-index\"]).to.eql(1);\r",
+							"                    pm.expect(item.configuration[\"min-payment-amount-before-fees\"]).to.eql(\"100\");\r",
+							"                    pm.expect(item.configuration[\"max-payment-amount-before-fees\"]).to.eql(\"50000\");\r",
+							"                    pm.expect(item.configuration[\"fee-structure\"].bands[0]).to.include({\r",
+							"                        \"from-amount\": 0,\r",
+							"                        \"type\": \"Fixed\",\r",
+							"                        \"value\": 7,\r",
+							"                        \"round-to-digits\": 2,\r",
+							"                        \"currency\": \"PHP\"\r",
+							"                    });\r",
+							"                    break;\r",
+							"\r",
+							"                case 6:\r",
+							"\r",
+							"                    pm.expect(item.key).to.eql(\"MAYA/1>DPY/1\");  // Validate 'key' inside 'response'\r",
+							"                     pm.expect(item.enabled).to.eql(routeEnableBoolean);\r",
+							"                    pm.expect(item[\"payment-channel\"].id).to.eql(\"MAYA\");\r",
+							"                    pm.expect(item[\"payment-provider\"].name).to.eql(\"DragonPay\");\r",
+							"                    pm.expect(item[\"priority-index\"]).to.eql(1);\r",
+							"                    pm.expect(item.configuration[\"min-payment-amount-before-fees\"]).to.eql(\"100\");\r",
+							"                    pm.expect(item.configuration[\"max-payment-amount-before-fees\"]).to.eql(\"50000\");\r",
+							"                    pm.expect(item.configuration[\"fee-structure\"].bands[0]).to.include({\r",
+							"                        \"from-amount\": 0,\r",
+							"                        \"type\": \"Fixed\",\r",
+							"                        \"value\": 10,\r",
+							"                        \"round-to-digits\": 2,\r",
+							"                        \"currency\": \"PHP\"\r",
+							"                    });\r",
+							"                    break;\r",
+							"\r",
+							"                case 7:\r",
+							"\r",
+							"                    pm.expect(item.key).to.eql(\"MBTC/1>PMG/1\");  // Validate 'key' inside 'response'\r",
+							"                    pm.expect(item.enabled).to.eql(routeEnableBoolean);\r",
+							"                    pm.expect(item[\"payment-channel\"].id).to.eql(\"MBTC\");\r",
+							"                    pm.expect(item[\"payment-provider\"].name).to.eql(\"PayMongo\");\r",
+							"                    pm.expect(item[\"priority-index\"]).to.eql(1);\r",
+							"                    pm.expect(item.configuration[\"min-payment-amount-before-fees\"]).to.eql(\"100\");\r",
+							"                    pm.expect(item.configuration[\"max-payment-amount-before-fees\"]).to.eql(\"50000\");\r",
+							"                    pm.expect(item.configuration[\"fee-structure\"].bands[0]).to.include({\r",
+							"                        \"from-amount\": 0,\r",
+							"                        \"type\": \"Fixed\",\r",
+							"                        \"value\": 7,\r",
+							"                        \"round-to-digits\": 2,\r",
+							"                        \"currency\": \"PHP\"\r",
+							"                    });\r",
+							"                    break;\r",
+							"\r",
+							"                case 8:\r",
+							"                    pm.expect(item.key).to.eql(\"RCBC/1>BUX/2\");  // Validate 'key' inside 'response'\r",
+							"                    pm.expect(item.enabled).to.eql(routeEnableBoolean);\r",
+							"                    pm.expect(item[\"payment-channel\"].id).to.eql(\"RCBC\");\r",
+							"                    pm.expect(item[\"payment-provider\"].name).to.eql(\"BUX\");\r",
+							"                    pm.expect(item[\"priority-index\"]).to.eql(1);\r",
+							"                    pm.expect(item.configuration[\"min-payment-amount-before-fees\"]).to.eql(\"100\");\r",
+							"                    pm.expect(item.configuration[\"max-payment-amount-before-fees\"]).to.eql(\"50000\");\r",
+							"                    pm.expect(item.configuration[\"fee-structure\"].bands[0]).to.include({\r",
+							"                        \"from-amount\": 0,\r",
+							"                        \"type\": \"Fixed\",\r",
+							"                        \"value\": 5,\r",
+							"                        \"round-to-digits\": 2,\r",
+							"                        \"currency\": \"PHP\"\r",
+							"                    });\r",
+							"                    break;\r",
+							"\r",
+							"                 case 9:\r",
+							"\r",
+							"                    pm.expect(item.key).to.eql(\"UBPB/1>BUX/2\");  // Validate 'key' inside 'response'\r",
+							"                   pm.expect(item.enabled).to.eql(routeEnableBoolean);\r",
+							"                    pm.expect(item[\"payment-channel\"].id).to.eql(\"UBPB\");\r",
+							"                    pm.expect(item[\"payment-provider\"].name).to.eql(\"BUX\");\r",
+							"                    pm.expect(item[\"priority-index\"]).to.eql(1);\r",
+							"                    pm.expect(item.configuration[\"min-payment-amount-before-fees\"]).to.eql(\"100\");\r",
+							"                    pm.expect(item.configuration[\"max-payment-amount-before-fees\"]).to.eql(\"80000\");\r",
+							"                    pm.expect(item.configuration[\"fee-structure\"].bands[0]).to.include({\r",
+							"                        \"from-amount\": 0,\r",
+							"                        \"type\": \"Fixed\",\r",
+							"                        \"value\": 5,\r",
+							"                        \"round-to-digits\": 2,\r",
+							"                        \"currency\": \"PHP\"\r",
+							"                    });\r",
+							"                    break;\r",
+							"\r",
+							"                case 10:\r",
+							"                    \r",
+							"                    pm.expect(item.key).to.eql(\"UBPB/1>PMG/1\");  // Validate 'key' inside 'response'\r",
+							"                    pm.expect(item.enabled).to.eql(routeEnableBoolean);\r",
+							"                    pm.expect(item[\"payment-channel\"].id).to.eql(\"UBPB\");\r",
+							"                    pm.expect(item[\"payment-provider\"].name).to.eql(\"PayMongo\");\r",
+							"                    pm.expect(item[\"priority-index\"]).to.eql(2);\r",
+							"                    pm.expect(item.configuration[\"min-payment-amount-before-fees\"]).to.eql(\"100\");\r",
+							"                    pm.expect(item.configuration[\"max-payment-amount-before-fees\"]).to.eql(\"80000\");\r",
+							"                    pm.expect(item.configuration[\"fee-structure\"].bands[0]).to.include({\r",
+							"                        \"from-amount\": 0,\r",
+							"                        \"type\": \"Fixed\",\r",
+							"                        \"value\": 7,\r",
+							"                        \"round-to-digits\": 2,\r",
+							"                        \"currency\": \"PHP\"\r",
+							"                    });\r",
+							"                    break;\r",
+							"           \r",
+							"                default:\r",
+							"                    pm.expect.fail(`No validation defined for ID ${id}`);\r",
+							"            }\r",
+							"        });\r",
+							"    }\r",
+							"}\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{paymentgateway}}/v1/paymentchannelroute?id={{route_id}}",
+					"host": [
+						"{{paymentgateway}}"
+					],
+					"path": [
+						"v1",
+						"paymentchannelroute"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{route_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "route_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "route_enable",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "route_enable_boolean",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "payment_channel_Code",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "paymentProviderImplementationVersion",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "reason",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "TransactionID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "paymentgateway",
+			"value": "internal-apdu-mobileap-be-payments-uat-223392390.ap-southeast-1.elb.amazonaws.com",
+			"type": "string"
+		},
+		{
+			"key": "paymentChannelImplementationVersion",
+			"value": ""
+		},
+		{
+			"key": "PaymentURL",
+			"value": ""
+		},
+		{
+			"key": "PaymentProviderName",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

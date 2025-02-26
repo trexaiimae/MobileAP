@@ -1,0 +1,703 @@
+[
+  {
+    "label": "When all parameters are empty, response return 400",
+    "duCode": "",
+    "accountNumber": "",
+    "amount": "",
+    "paymentChannelCode": "",
+    "paymentChannelImplementationVersion": ""
+  },
+  {
+    "label": "When parameter ducode is given valid value and the rest of parameter is empty, return 400",
+    "duCode": "VECO",
+    "accountNumber": "",
+    "amount": "",
+    "paymentChannelCode": "",
+    "paymentChannelImplementationVersion": ""
+  },
+  {
+    "label": "When parameter accountnumber is given valid value and the rest of parameter is empty, return 400",
+    "duCode": "",
+    "accountNumber": "61404839971",
+    "amount": "",
+    "paymentChannelCode": "",
+    "paymentChannelImplementationVersion": ""
+  },
+  {
+    "label": "When parameter amount is given valid value and the rest of parameter is empty, return 400",
+    "duCode": "",
+    "accountNumber": "",
+    "amount": "100",
+    "paymentChannelCode": "",
+    "paymentChannelImplementationVersion": ""
+  },
+  {
+    "label": "When parameter channel is given valid value and the rest of parameter is empty, return 400",
+    "duCode": "",
+    "accountNumber": "",
+    "amount": "",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": ""
+  },
+  {
+    "label": "When parameter paymentChannelImplementationVersion is given valid value and the rest of parameter is empty, return 400",
+    "duCode": "",
+    "accountNumber": "",
+    "amount": "",
+    "paymentChannelCode": "",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "When Parameter ducode given valid value, and other parameter is given invalid value, return 400",
+    "duCode": "VECO",
+    "accountNumber": "614048",
+    "amount": "#@$!",
+    "paymentChannelCode": "TEST",
+    "paymentChannelImplementationVersion": "2"
+  },
+  {
+    "label": "When Parameter accountnumber given valid value, and other parameter is given invalid value, return 400",
+    "duCode": "TEST",
+    "accountNumber": "61404839971",
+    "amount": "-123",
+    "paymentChannelCode": "TEST",
+    "paymentChannelImplementationVersion": "2"
+  },
+
+  {
+    "label": "When Parameter amount given valid value, and other parameter is given invalid value, return 400",
+    "duCode": "TEST",
+    "accountNumber": "61404839",
+    "amount": "100",
+    "paymentChannelCode": "TEST",
+    "paymentChannelImplementationVersion": "2"
+  },
+  {
+    "label": "When Parameter amount given below 100 pesos value and other parameter given valid value, return 400",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "20",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "When Parameter paymentChannelCode  given valid value, and other parameter is given invalid value, return 400",
+    "duCode": "TEST",
+    "accountNumber": "TEST",
+    "amount": "@123",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "3"
+  },
+  {
+    "label": "When Parameter paymentChannelImplementationVersion given valid value, and other parameter is given invalid value, return 400",
+     "duCode": "TEST",
+    "accountNumber": "TEST",
+    "amount": "@123",
+    "paymentChannelCode": "TESTING",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "When accountnumber parameter given CLPC value but the ducode is VECO, return 400",
+    "duCode": "CLPC",
+    "accountNumber": "61404839971",
+    "amount": "100",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "When accountnumber parameter given 10 value only and other parameter given valid value, return 400",
+    "duCode": "VECO",
+    "accountNumber": "6140483997",
+    "amount": "49995",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+{
+    "label": "When accountNumber given string and other paramater given valid value, return 400 ",
+    "duCode": "VECO",
+    "accountNumber": "TESTING",
+    "amount": "100",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "When amount given string and other paramater given valid value, return 400 ",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "One Hundred",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "VECO SME Amount  given below 93 value, return 400",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "92",
+    "paymentChannelCode": "BDOU",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Maximum Amount  given 49993, return 400",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "49994",
+    "paymentChannelCode": "BDOU",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Minimum Amount BPI  given below 95 value, return 400",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "94",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Maximum Amount BPI given 49995, return 400",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "49996",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Minimum Amount GCash given below 70 value, return 400",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "69",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Maximum Amount GCash given below 49970 value, return 400",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "49971",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Minimum Amount LandBank given below 93 value, return 400",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "92",
+    "paymentChannelCode": "LBPH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Maximum Amount Landbank given below 49993 value, return 400",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "49994",
+    "paymentChannelCode": "LBPH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Minimum Amount MetroBank given below 93 value, return 400",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "92",
+    "paymentChannelCode": "MBTC",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Maximum Amount MetroBank given below 49993 value, return 400",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "49994",
+    "paymentChannelCode": "MBTC",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "VECO SME Minimum Amount RCBC given below 95 value, return 400",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "94",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Maximum Amount RCBC given below 49995 value, return 400",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "49996",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+{
+    "label": "VECO SME Minimum Amount Unionbank given below 95 value, return 400",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "94",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Maximum Amount Unionbank given below 79995 value, return 400",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "79996",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "DLPC SME Minimum Amount BDO given below 93 value, return 400",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "92",
+    "paymentChannelCode": "BDOU",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "DLCP SME Maximum Amount BDO given below 49993 value, return 400",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "49994",
+    "paymentChannelCode": "BDOU",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "DLPC SME Minimum Amount BPI given below 95 value, return 400",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "94",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "DLCP SME Maximum Amount BPI given below 49995 value, return 400",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "49996",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "DLPC SME Minimum Amount GCash given below 70 value, return 400",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "69",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "DLCP SME Maximum Amount GCash given below 49970 value, return 400",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "49971",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "DLPC SME Minimum Amount LandBank given below 93 value, return 400",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "92",
+    "paymentChannelCode": "LBPH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "DLCP SME Maximum Amount Landbank given below 49993 value, return 400",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "49994",
+    "paymentChannelCode": "LBPH",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "DLPC SME Minimum Amount MetroBank given below 93 value, return 400",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "92",
+    "paymentChannelCode": "MBTC",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "DLCP SME Maximum Amount MetroBank given below 49993 value, return 400",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "49994",
+    "paymentChannelCode": "MBTC",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "DLPC SME Minimum Amount RCBC given below 95 value, return 400",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "94",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "DLCP SME Maximum Amount RCBC given below 49995 value, return 400",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "49996",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+{
+    "label": "DLPC SME Minimum Amount UnionBank given below 95 value, return 400",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "94",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "DLCP SME Maximum Amount UnionBank given below 79995 value, return 400",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "79996",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "CLPC SME Minimum Amount  given below 93 value, return 400 ",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "92",
+    "paymentChannelCode": "BDOU",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "CLPC SME Maximum Amount  given below 49993 value, return 400",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "49994",
+    "paymentChannelCode": "BDOU",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "CLPC SME Minimum Amount BPI given below 95 value, return 400",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "94",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "CLPC SME Maximum Amount BPI given below 49995 value, return 400",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "49996",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "CLPC SME Minimum Amount GCash given below 70 value, return 400",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "69",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "CLPC SME Maximum Amount GCASH given below 49970 value, return 400",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "49971",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "CLPC SME Minimum Amount LandBank given below 93 value, return 400",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "92",
+    "paymentChannelCode": "LBPH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "CLPC SME Maximum Amount Landbank given below 49993 value, return 400",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "49994",
+    "paymentChannelCode": "LBPH",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "CLPC SME Minimum Amount MetroBank given below 93 value, return 400",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "92",
+    "paymentChannelCode": "MBTC",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "CLPC SME Maximum Amount MetroBank given below 49993 value, return 400",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "49994",
+    "paymentChannelCode": "MBTC",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "CLPC SME Minimum Amount RCBC given below 95 value, return 400",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "94",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "CLPC SME Maximum Amount RCBC given below 49995 value, return 400",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "49996",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+{
+    "label": "CLPC SME Minimum Amount UnionBank given below 95 value, return 400" ,
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "94",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "CLPC SME Maximum Amount Unionbank given below 79995 value, return 400",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "79996",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "SEZC SME Minimum Amount  given below 93 value, return 400",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "92",
+    "paymentChannelCode": "BDOU",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "SEZC SME Maximum Amount  given below 49993 value, return 400",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "49994",
+    "paymentChannelCode": "BDOU",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "SEZC SME Minimum Amount BPI given below 95 value, return 400",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "94",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "SEZC SME Maximum Amount BPI given below 49995 value, return 400",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "49996",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "SEZC SME Minimum Amount GCash given below 70 value, return 400",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "69",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "SEZC SME Maximum Amount GCash given below 49970 value, return 400",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "49971",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "SEZC SME Minimum Amount Landbank given below 93 value, return 400",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "92",
+    "paymentChannelCode": "LBPH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "SEZC SME Maximum Amount Landbank given below 49993 value, return 400",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "49994",
+    "paymentChannelCode": "LBPH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "SEZC SME Minimum Amount MetroBank given below 93 value, return 400",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "92",
+    "paymentChannelCode": "MBTC",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "SEZC SME Maximum Amount MetroBank given below 49993 value, return 400",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "49994",
+    "paymentChannelCode": "MBTC",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "SEZC SME Minimum Amount RCBC given below 95 value, return 400",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "94",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "SEZC SME Maximum Amount RCBC given below 49995 value, return 400",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "49996",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+{
+   "label": "SEZC SME Minimum Amount UBPB given below 95 value, return 400",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "94",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersiSon": "1"
+  },
+  {
+    "label": "SEZC SME Maximum Amount UBPB given below 79995 value, return 400",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "79996",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Amount  given below 93 value, return 400",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "92",
+    "paymentChannelCode": "BDOU",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Maximum Amount  given 49993, return 400",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "49994",
+    "paymentChannelCode": "BDOU",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Minimum Amount BPI  given below 95 value, return 400",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "94",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Maximum Amount BPI given 49995, return 400",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "49996",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Minimum Amount GCash given below 70 value, return 400",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "69",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Maximum Amount GCash given below 49970 value, return 400",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "49971",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Minimum Amount LandBank given below 93 value, return 400",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "92",
+    "paymentChannelCode": "LBPH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Maximum Amount Landbank given below 49993 value, return 400",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "49994",
+    "paymentChannelCode": "LBPH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Minimum Amount MetroBank given below 93 value, return 400",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "92",
+    "paymentChannelCode": "MBTC",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Maximum Amount MetroBank given below 49993 value, return 400",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "49994",
+    "paymentChannelCode": "MBTC",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "LEZC SME Minimum Amount RCBC given below 95 value, return 400",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "94",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Maximum Amount RCBC given below 49995 value, return 400",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "49996",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+{
+    "label": "LEZC SME Minimum Amount Unionbank given below 95 value, return 400",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "94",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Maximum Amount Unionbank given below 79995 value, return 400",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "79996",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": "1"
+  }
+]

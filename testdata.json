@@ -1,0 +1,27 @@
+[
+
+  {
+    "label": "VECO SME Minimum Amount BPI",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "95",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Maximum Amount BPI",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "49995",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Minimum Amount GCash",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "70",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": "1"
+  }
+]

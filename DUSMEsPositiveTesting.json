@@ -1,0 +1,572 @@
+[
+  {
+    "label": "VECO SME Minimum Amount BDO",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "93",
+    "paymentChannelCode": "BDOU",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Maximum Amount BDO",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "49993",
+    "paymentChannelCode": "BDOU",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Minimum Amount BPI",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "95",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Maximum Amount BPI",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "49995",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Minimum Amount GCash",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "70",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Maximum Amount GCash",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "49970",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Minimum Amount LandBank",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "93",
+    "paymentChannelCode": "LBPH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Maximum Amount Landbank",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "49993",
+    "paymentChannelCode": "LBPH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Minimum Amount MetroBank",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "93",
+    "paymentChannelCode": "MBTC",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Maximum Amount MetroBank",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "49993",
+    "paymentChannelCode": "MBTC",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "VECO SME Minimum Amount RCBC",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "95",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Maximum Amount RCBC",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "49995",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+{
+    "label": "VECO SME Minimum Amount Unionbank",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "95",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "VECO SME Maximum Amount Unionbank",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "75000",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "DLPC SME Minimum Amount BDO",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "93",
+    "paymentChannelCode": "BDOU",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "DLCP SME Maximum Amount BDO",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "49993",
+    "paymentChannelCode": "BDOU",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "DLPC SME Minimum Amount BPI",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "95",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "DLCP SME Maximum Amount BPI",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "49995",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "DLPC SME Minimum Amount GCash",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "70",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "DLCP SME Maximum Amount GCash",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "49970",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "DLPC SME Minimum Amount LandBank",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "93",
+    "paymentChannelCode": "LBPH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "DLCP SME Maximum Amount Landbank",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "49993",
+    "paymentChannelCode": "LBPH",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "DLPC SME Minimum Amount MetroBank",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "93",
+    "paymentChannelCode": "MBTC",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "DLCP SME Maximum Amount MetroBank",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "49993",
+    "paymentChannelCode": "MBTC",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "DLPC SME Minimum Amount RCBC",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "95",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "DLCP SME Maximum Amount RCBC",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "49995",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+{
+    "label": "DLPC SME Minimum Amount UnionBank",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "95",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "DLCP SME Maximum Amount UnionBank",
+    "duCode": "DLPC",
+    "accountNumber": "14286130233",
+    "amount": "75000",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "CLPC SME Minimum Amount BDO",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "93",
+    "paymentChannelCode": "BDOU",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "CLPC SME Maximum Amount BDO",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "49993",
+    "paymentChannelCode": "BDOU",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "CLPC SME Minimum Amount BPI",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "95",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "CLPC SME Maximum Amount BPI",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "49995",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "CLPC SME Minimum Amount GCash",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "70",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "CLPC SME Maximum Amount GCASH",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "49970",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "CLPC SME Minimum Amount LandBank",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "93",
+    "paymentChannelCode": "LBPH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "CLPC SME Maximum Amount Landbank",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "49993",
+    "paymentChannelCode": "LBPH",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "CLPC SME Minimum Amount MetroBank",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "93",
+    "paymentChannelCode": "MBTC",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "CLPC SME Maximum Amount MetroBank",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "49993",
+    "paymentChannelCode": "MBTC",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "CLPC SME Minimum Amount RCBC",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "95",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "CLPC SME Maximum Amount RCBC",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "49995",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+{
+    "label": "CLPC SME Minimum Amount UnionBank",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "95",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "CLPC SME Maximum Amount Unionbank",
+    "duCode": "CLPC",
+    "accountNumber": "78537233427",
+    "amount": "75000",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "SEZC SME Minimum Amount BDO",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "93",
+    "paymentChannelCode": "BDOU",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "SEZC SME Maximum Amount BDO",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "49993",
+    "paymentChannelCode": "BDOU",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "SEZC SME Minimum Amount BPI",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "95",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "SEZC SME Maximum Amount BPI",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "49995",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "SEZC SME Minimum Amount GCash",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "70",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "SEZC SME Maximum Amount GCash",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "49970",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "SEZC SME Minimum Amount Landbank",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "93",
+    "paymentChannelCode": "LBPH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "SEZC SME Maximum Amount Landbank",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "49993",
+    "paymentChannelCode": "LBPH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "SEZC SME Minimum Amount MetroBank",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "93",
+    "paymentChannelCode": "MBTC",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "SEZC SME Maximum Amount MetroBank",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "49993",
+    "paymentChannelCode": "MBTC",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "SEZC SME Minimum Amount RCBC",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "95",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "SEZC SME Maximum Amount RCBC",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "49995",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+{
+   "label": "SEZC SME Minimum Amount UBPB",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "95",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "SEZC SME Maximum Amount UBPB",
+    "duCode": "SEZC",
+    "accountNumber": "32819535579",
+    "amount": "75000",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Minimum Amount BDO",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "93",
+    "paymentChannelCode": "BDOU",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Minimum Amount BDO",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "49993",
+    "paymentChannelCode": "BDOU",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Minimum Amount BPI",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "95",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Maximum Amount BPI",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "49995",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Minimum Amount GCash",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "70",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Maximum Amount GCash",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "49970",
+    "paymentChannelCode": "GCSH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Minimum Amount LandBank",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "93",
+    "paymentChannelCode": "LBPH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Maximum Amount Landbank",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "49993",
+    "paymentChannelCode": "LBPH",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Minimum Amount MetroBank",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "93",
+    "paymentChannelCode": "MBTC",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Maximum Amount MetroBank",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "49993",
+    "paymentChannelCode": "MBTC",
+    "paymentChannelImplementationVersion": "1"
+  },
+
+  {
+    "label": "LEZC SME Minimum Amount RCBC",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "95",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Maximum Amount RCBC",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "49995",
+    "paymentChannelCode": "RCBC",
+    "paymentChannelImplementationVersion": "1"
+  },
+{
+    "label": "LEZC SME Minimum Amount Unionbank",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "95",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": "1"
+  },
+  {
+    "label": "LEZC SME Maximum Amount Unionbank",
+    "duCode": "LEZC",
+    "accountNumber": "60086167578",
+    "amount": "75000",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": "1"
+  }
+]

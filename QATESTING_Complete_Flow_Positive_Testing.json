@@ -1,0 +1,1257 @@
+{
+	"info": {
+		"_postman_id": "b3e0674c-3185-4d28-9e2c-af2d8bc22a36",
+		"name": "QATESTING Complete Flow (Positive Testing) trexie",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38162381",
+		"_collection_link": "https://gluon-consulting.postman.co/workspace/Aboitiz-Power-MobileAP~719b6210-b8f4-42e3-855d-efe9811fd703/collection/38162381-b3e0674c-3185-4d28-9e2c-af2d8bc22a36?action=share&source=collection_link&creator=38162381"
+	},
+	"item": [
+		{
+			"name": "Payment Test Complete",
+			"item": [
+				{
+					"name": "Login with Password(Integration purposes)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"if (jsonData.response != null) {\r",
+									"    pm.environment.set(\"access_token\", jsonData.response.accessToken);\r",
+									"    pm.environment.set(\"refresh_token\", jsonData.response.refreshToken);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Add delay of 5 seconds (5000 milliseconds) between iterations",
+									"setTimeout(function() {",
+									"}, 5000);  // 5000ms = 5 seconds",
+									"",
+									"",
+									"const crypto = require('crypto-js');",
+									"const rawData = pm.request.body.toString();",
+									"const strippedData = rawData.replace(",
+									"    /\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g,",
+									"    (m, g) => g ? \"\" : m",
+									");",
+									"let json = JSON.parse(strippedData);",
+									"let password = json.password;",
+									"let hash = crypto.SHA256(password).toString();",
+									"json.password = hash;",
+									"pm.request.body.raw = JSON.stringify(json);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "login",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{static_token_login}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"testertrexie@gmail.com\", // (Required) Either filled with username / email address, with same key \"username\"\r\n    \"password\": \"Admin@123\", // (Required) \r\n    \"userDevice\": {\r\n        \"type\": \"SmartPhone\", // (Required) SmartPhone / Tablet / Web / Other\r\n        \"model\": \"sdk_gphone_x86_arm\", // (Required) Phone model\r\n        \"deviceIdentifier\": \"11111\", // (Required) Unique string from android / ios SDK\r\n        \"platform\": \"Android\", // (Required) Android / Ios / Api\r\n        \"appVersion\": \"2.3.0+431\", // (Required) Only for analytic purposes\r\n        \"appName\": \"endUser\" // (Required) Hardcoded to \"endUser\" for MobileAP\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/v1/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"login"
+							]
+						},
+						"description": "Login with username (only valid for users before SSO registration was introduced), or email address (for all users)\n\nNote:\n\n1. password will be encrypted before sent (see Pre-request script)\n    \n2. response will be parsed and put into environment variables (see Post-response script)"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"legacyuser0\",\r\n    \"password\": \"123456\",\r\n    \"userDevice\": {\r\n        \"type\": \"SmartPhone\",\r\n        \"model\": \"sdk_gphone_x86_arm\",\r\n        \"deviceIdentifier\": \"11111\",\r\n        \"platform\": \"Android\",\r\n        \"appVersion\": \"2.3.0+431\",\r\n        \"appName\": \"endUser\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/v1/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 10 Jun 2024 03:27:47 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "688"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubdomains; preload"
+								},
+								{
+									"key": "pragma",
+									"value": "no-store"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "server",
+									"value": "conduit/1"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"responder-id\": \"756421c1-1550-4d53-8882-2954c8585a0e_1\",\n    \"responder\": \"APDU MobileAP Service Orchestrator UAT\",\n    \"service-name\": \"LoginWithPasswordImpl\",\n    \"service-version\": \"3.0.0+900\",\n    \"response-timestamp\": \"2024-06-10T03:27:47.496331Z\",\n    \"success\": true,\n    \"response\": {\n        \"accessToken\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpdiI6Imtxam5lSjljeVF5VjF6dCswTldva1E9PSIsInVzZXJJZCI6IlJVQ1dyUm1ZWnNuSzNrS3VrKzRPNEE9PSIsImRldmljZUlkIjoiUm55dnJ4dWFaTXZJM0VDc2tld000Zz09IiwidXNlcm5hbWUiOiJsZWdhY3l1c2VyMCIsImRldmljZVR5cGUiOiJTbWFydFBob25lIiwiZGV2aWNlTW9kZWwiOiJzZGtfZ3Bob25lX3g4Nl9hcm0iLCJkZXZpY2VJZGVudGlmaWVyIjoiazNaRHd3MVZwZkswTVZ4YVNybXQiLCJkZXZpY2VQbGF0Zm9ybSI6IkFuZHJvaWQiLCJhcHBWZXJzaW9uIjoiMi4zLjArNDMxIiwiYXBwTmFtZSI6ImVuZFVzZXIifQ.30C2g8L8BjU5FC3JCX96bMwXKx-qxs_ECECSnDgkzok\",\n        \"validUntil\": \"2024-06-10T03:57:47.433280\",\n        \"refreshToken\": \"tTa2kQfAnrscybr589EFeItF9TNY08CA\",\n        \"securityToken\": \"N/Em/pfve97KTdR07tV0iZl/ebgo9oUfdqsuYu1o1c7YtZTeO8ASKd112PKoZYxg\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Pay from Bank Channel(Integration purposes)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Add delay of 5 seconds (5000 milliseconds) between iterations\r",
+									"setTimeout(function() {\r",
+									"}, 5000);  // 5000ms = 5 seconds\r",
+									"\r",
+									"\r",
+									"// Store the data in the collection variable per iteration from json file\r",
+									"pm.collectionVariables.set(\"du_code\", pm.iterationData.get(\"duCode\"));\r",
+									"pm.collectionVariables.set(\"account_number\", pm.iterationData.get(\"accountNumber\"));\r",
+									"pm.collectionVariables.set(\"amount\", pm.iterationData.get(\"amount\"));\r",
+									"pm.collectionVariables.set(\"payment_channel_Code\", pm.iterationData.get(\"paymentChannelCode\"));\r",
+									"pm.collectionVariables.set(\"paymentChannelImplementationVersion\", pm.iterationData.get(\"implementationversion\"));\r",
+									"pm.collectionVariables.set(\"label\", pm.iterationData.get(\"label\"));"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the JSON response\r",
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(`Status code is 200 for ${pm.collectionVariables.get(\"label\")}`, function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"\r",
+									"    //  Assert the \"success\" field is true\r",
+									"    pm.expect(jsonData.success).to.be.true;\r",
+									"\r",
+									"    // Assert \"transaction-id\" exists and is not empty\r",
+									"    pm.expect(jsonData.response[\"transaction-id\"]).to.be.a('string').and.not.be.empty;\r",
+									"\r",
+									"    //  Assert \"payee\" details in response are correct\r",
+									"    pm.expect(jsonData.response.payee.id).to.eql(466);\r",
+									"    pm.expect(jsonData.response.payee[\"full-name\"]).to.eql(\"Owner, Qa Tester A\");\r",
+									"    pm.expect(jsonData.response.payee[\"phone-number\"]).to.eql(\"9269497828\");\r",
+									"    pm.expect(jsonData.response.payee[\"email-address\"]).to.eql(\"testertrexie@gmail.com\");\r",
+									"\r",
+									"    // Assert that \"du-code\" in response is correct\r",
+									"    pm.expect(jsonData.response[\"du-code\"]).to.eql(pm.collectionVariables.get(\"du_code\"));\r",
+									"\r",
+									"    // Assert that \"du-account-number\" in response is correct\r",
+									"    pm.expect(jsonData.response[\"du-account-number\"]).to.eql(pm.collectionVariables.get(\"account_number\"));\r",
+									"\r",
+									"    // Assert \"payment-amount-before-fees\" in response is correct\r",
+									"    pm.expect(jsonData.response[\"payment-amount-before-fees\"]).to.eql(pm.collectionVariables.get(\"amount\"));\r",
+									"\r",
+									"    // Assert \"fees-amount\" and \"total-amount\" are correct based on bank fees\r",
+									"    const amount = parseFloat(pm.collectionVariables.get(\"amount\"));\r",
+									"    let expectedFee;\r",
+									"    \r",
+									"    // Bank-dependent logic for fees\r",
+									"    const bankId = jsonData.response[\"payment-channel\"].id;\r",
+									"    //set the bank ID\r",
+									"    pm.collectionVariables.set(\"payment_channel_Code\", bankId);\r",
+									"    //set the user flow url\r",
+									"    pm.collectionVariables.set(\"PaymentURL\", jsonData.response[\"user-flow-url\"]);\r",
+									"    \r",
+									"    if ([\"BDOU\", \"MBTC\", \"LBPH\"].includes(bankId)) {\r",
+									"        expectedFee = 7; // 7 pesos for BDO, Metrobank, and Landbank\r",
+									"    } else if ([\"BPIA\", \"RCBC\", \"UBPB\"].includes(bankId)) {\r",
+									"        expectedFee = 5; // 5 pesos for UnionBank and BPI\r",
+									"    } else if ([\"GCSH\"].includes(bankId)) {\r",
+									"        expectedFee = 30; // 30 pesos for GCash\r",
+									"    } else if ([\"MAYA\"].includes(bankId)) {\r",
+									"        expectedFee = 10; // 10 pesos for Maya\r",
+									"    } else {\r",
+									"        pm.expect.fail(`Unexpected bank ID: ${bankId}. No fee defined for this bank.`);\r",
+									"        return; // Exit if no expected fee is found\r",
+									"    }\r",
+									"\r",
+									"    const expectedTotal = amount + expectedFee;\r",
+									"    pm.expect(parseFloat(jsonData.response[\"total-amount\"])).to.eql(expectedTotal);\r",
+									"\r",
+									"    //  Assert the status is \"PendingUser\"\r",
+									"    pm.expect(jsonData.response.status).to.eql(\"PendingUser\");\r",
+									"\r",
+									"    // Assert \"user-flow-url\" starts with https\r",
+									"    pm.expect(jsonData.response[\"user-flow-url\"].startsWith(\"https\")).to.be.true;\r",
+									"\r",
+									"    // Set \"transaction-id\" as a collection variable\r",
+									"    pm.collectionVariables.set(\"TransactionID\", jsonData.response[\"transaction-id\"]);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"duCode\": \"{{du_code}}\",\r\n    \"accountNumber\": \"{{account_number}}\",\r\n    \"amount\": \"{{amount}}\",\r\n    \"paymentChannelCode\": \"{{payment_channel_Code}}\",\r\n    \"paymentChannelImplementationVersion\": \"{{paymentChannelImplementationVersion}}\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/v2/e-payment/channel/pay",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v2",
+								"e-payment",
+								"channel",
+								"pay"
+							]
+						},
+						"description": "Pay using bank online"
+					},
+					"response": [
+						{
+							"name": "Failed: Payment Already Started",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"duCode\": \"VECO\",\r\n    \"accountNumber\": \"99555155706\",\r\n    \"amount\": \"50\",\r\n    \"channel\": \"BPIA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/v1/e-payment/channel/pay",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"e-payment",
+										"channel",
+										"pay"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "291"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "server",
+									"value": "conduit/1"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"responder-id\": \"945dc32e-6eb4-48f2-bdbf-1bc8bb006535_1\",\n    \"responder\": \"APDU MobileAP Service Orchestrator UAT\",\n    \"service-name\": \"payBillFromChannel\",\n    \"service-version\": \"2.2.0+318\",\n    \"response-timestamp\": \"2022-08-08T07:47:44.849238Z\",\n    \"success\": false,\n    \"error\": {\n        \"message\": \"An existing payment transaction has already been started. Please complete the pending transaction before creating a new one.\"\n    }\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"duCode\": \"VECO\",\r\n    \"accountNumber\": \"99555155706\",\r\n    \"amount\": \"50\",\r\n    \"channel\": \"BPIA\",\r\n    \"providerCode\": \"BUX\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/v1/e-payment/channel/pay",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"e-payment",
+										"channel",
+										"pay"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "https://mobileap.aboitizpower.com"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-length",
+									"value": "677"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubdomains; preload"
+								},
+								{
+									"key": "pragma",
+									"value": "no-store"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "server",
+									"value": "conduit/1"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"responder-id\": \"9e93a427-94cc-40f0-9762-889be9ab0b22_1\",\n    \"responder\": \"APDU MobileAP Service Orchestrator UAT\",\n    \"service-name\": \"payBillFromChannel\",\n    \"service-version\": \"2.2.0+318\",\n    \"response-timestamp\": \"2022-11-24T04:36:54.594048Z\",\n    \"success\": true,\n    \"response\": {\n        \"id\": \"308\",\n        \"paymentId\": \"\",\n        \"duCode\": \"VECO\",\n        \"accountNumber\": \"99555155706\",\n        \"orNumber\": \"\",\n        \"paymentAmount\": \"50\",\n        \"providerFee\": \"15\",\n        \"paymentAgent\": \"BUX\",\n        \"paymentBranch\": \"BPIA\",\n        \"paymentMadeDate\": \"2022-11-24T04:36:51.521014Z\",\n        \"paymentProcessedDate\": null,\n        \"paymentStatus\": \"started\",\n        \"paymentType\": \"checkoutUrl\",\n        \"requestId\": \"f0f4e0dc-5067-431c-9689-4990d2f08fe9\",\n        \"refCode\": \"BPIA86554\",\n        \"urlExpiredDate\": \"2022-11-24T04:46:54.373123Z\",\n        \"paymentUrl\": \"https://app.bux.ph/test/bux_payment/0d6eb0d17c3e4692b940a1386ddd5ec0\",\n        \"checkUrl\": \"https://app.bux.ph/test/payment/0d6eb0d17c3e4692b940a1386ddd5ec0/\",\n        \"userGenerator\": {\n            \"id\": 11,\n            \"username\": \"ihutef\",\n            \"firstName\": \"John\",\n            \"middleNameInitial\": \"M\",\n            \"lastName\": \"Doe\",\n            \"gender\": \"Male\",\n            \"dateOfBirth\": \"1990-07-01T00:00:00.000Z\",\n            \"profilePicture\": \"\",\n            \"isActive\": true,\n            \"pinDigitCount\": 6,\n            \"walletEmail\": \"ihutef_11@mobileap.integration\",\n            \"createdTimestamp\": \"2022-10-31T06:03:05.445812Z\",\n            \"lastModifiedTimestamp\": \"2022-11-16T04:28:10.811614Z\"\n        },\n        \"lastModifiedTimestamp\": \"2022-11-24T04:36:51.521014Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Test steps",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Add delay of 5 seconds (5000 milliseconds) between iterations\r",
+									"setTimeout(function() {\r",
+									"}, 5000);  // 5000ms = 5 seconds\r",
+									"\r",
+									"\r",
+									"let bankId = pm.collectionVariables.get(\"payment_channel_Code\");\r",
+									"if ([\"BPIA\", \"RCBC\", \"UBPB\"].includes(bankId)) {\r",
+									"pm.variables.set(\"testStep\",\r",
+									"\r",
+									"`\r",
+									"\"step\",\"key\",\"value\"\r",
+									"\"new Session\",null,null\r",
+									"\"navigate To\",\"url\",\"{{PaymentURL}}\"\r",
+									"\"wait\",\"seconds\",5\r",
+									"\"find Element\",\"css selector\",\"input[placeholder='Username']\"\r",
+									"\"element Send Keys\",\"text\",\"standard_user\"\r",
+									"\"find Element\",\"css selector\",\"input[placeholder='Password']\"\r",
+									"\"element Send Keys\",\"text\",\"Admin@123\"\r",
+									"\"find Element\",\"css selector\",\"body > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > button:nth-child(3)\"\r",
+									"\"element Click\",null,null\r",
+									"\"wait\",\"seconds\",5\r",
+									"\"find Element\",\"css selector\",\"body > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > div:nth-child(2) > div:nth-child(6) > button:nth-child(1)\"\r",
+									"\"element Click\",null,null\r",
+									"\"wait\",\"seconds\",5\r",
+									"\"close Window\",null,null\r",
+									"`)// 5 pesos for UnionBank and BPI\r",
+									"}\r",
+									"if ([\"GCSH\"].includes(bankId)) {\r",
+									"pm.variables.set(\"testStep\",\r",
+									"\r",
+									"`\r",
+									"\"step\",\"key\",\"value\"\r",
+									"\"new Session\",null,null\r",
+									"\"navigate To\",\"url\",\"{{PaymentURL}}\"\r",
+									"\"wait\",\"seconds\",5\r",
+									"\"find Element\",\"css selector\",\"button[class='ant-btn ant-btn-primary']\"\r",
+									"\"element Click\",null,null\r",
+									"\"wait\",\"seconds\",5\r",
+									"\"close Window\",null,null\r",
+									"`) // 30 pesos for GCash\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.example.com",
+							"protocol": "https",
+							"host": [
+								"www",
+								"example",
+								"com"
+							]
+						},
+						"description": "**This request is a dummy request or an intializer request that is used to define the test flow**\n\nWe are defining test steps as data table with 3 columns \"step\" , \"key\" and \"value\"\n\n**step** is an enum that accepts keywords like the requestname, assert and wait.\n\n**key** and **value** are the information we use to drive the test like location strategy , variable to use , value to compare etc\n\n```\n\npm.variables.set(\"testStep\",\n\n`\n\"step\",\"key\",\"value\"\n\"new Session\",null,null\n\"navigate To\",\"url\",\"https://www.saucedemo.com/\"\n\"find Element\",\"css selector\",\"#user-name\"\n\"element Send Keys\",\"text\",\"standard_user\"\n\"find Element\",\"css selector\",\"#password\"\n\"element Send Keys\",\"text\",\"secret_sauce\"\n\"find Element\",\"css selector\",\"#login-button\"\n\"element Click\",null,null\n\"wait\",\"seconds\",2\n\"find Element\",\"css selector\",\".title\"\n\"get Title\",\"pageTitle\",null\n\"assert\",\"title\",\"PRODUCTS\"\n\"get Element Text\",\"title\",null\n\"assert\",\"pageTitle\",\"Swag Labs\"\n\"close Window\",null,null\n\"new Session\",null,null\n\"navigate To\",\"url\",\"https://www.saucedemo.com/\"\n\"find Element\",\"css selector\",\"#user-name\"\n\"element Send Keys\",\"text\",\"standard_user\"\n\"find Element\",\"css selector\",\"#password\"\n\"element Send Keys\",\"text\",\"secret_sauce\"\n\"find Element\",\"css selector\",\"#login-button\"\n\"element Click\",null,null\n\"wait\",\"seconds\",2\n\"find Element\",\"css selector\",\".title\"\n\"get Element Text\",\"title\",null\n\"get Title\",\"pageTitle\",null\n\"assert\",\"title\",\"PRODUCTS\"\n\"assert\",\"pageTitle\",\"Swa Labs\"\n\"close Window\",null,null\n`\n)\n\n\n\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "new Session",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.variables.set(\"sessionId\",pm.response.json().value.sessionId)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(null)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"capabilities\": {\n        \"alwaysMatch\": {\n            \"browserName\": \"chrome\",\n            \"acceptInsecureCerts\": true,\n            \"goog:chromeOptions\": {\n                \"w3c\": true\n            }\n        },\n        \"firstMatch\": [\n            {}\n        ]\n    },\n    \"desiredCapabilities\": {\n        \"browserName\": \"chrome\",\n        \"acceptInsecureCerts\": true\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/session",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"session"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "navigate To",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(null)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"{{key}}\": \"{{value}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/session/:sessionId/url",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"session",
+								":sessionId",
+								"url"
+							],
+							"variable": [
+								{
+									"key": "sessionId",
+									"value": "{{sessionId}}",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(null)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/session/:sessionId/refresh",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"session",
+								":sessionId",
+								"refresh"
+							],
+							"variable": [
+								{
+									"key": "sessionId",
+									"value": "{{sessionId}}",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find Element",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.variables.set(\"elementId\",Object.values(pm.response.json().value)[0])"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(null)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"using\": \"{{key}}\",\n    \"value\": \"{{value}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/session/:sessionId/element",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"session",
+								":sessionId",
+								"element"
+							],
+							"variable": [
+								{
+									"key": "sessionId",
+									"value": "{{sessionId}}",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "minimize Window",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(null)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/session/:sessionId/window/minimize",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"session",
+								":sessionId",
+								"window",
+								"minimize"
+							],
+							"variable": [
+								{
+									"key": "sessionId",
+									"value": "{{sessionId}}",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Element Text",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(null)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/session/:sessionId/element/:elementId/text",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"session",
+								":sessionId",
+								"element",
+								":elementId",
+								"text"
+							],
+							"variable": [
+								{
+									"key": "sessionId",
+									"value": "{{sessionId}}",
+									"description": "(Required) "
+								},
+								{
+									"key": "elementId",
+									"value": "{{elementId}}",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "element Click",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(null)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/session/:sessionId/element/:elementId/click",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"session",
+								":sessionId",
+								"element",
+								":elementId",
+								"click"
+							],
+							"variable": [
+								{
+									"key": "sessionId",
+									"value": "{{sessionId}}",
+									"description": "(Required) "
+								},
+								{
+									"key": "elementId",
+									"value": "{{elementId}}",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "element Send Keys",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(null)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"{{key}}\": \"{{value}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/session/:sessionId/element/:elementId/value",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"session",
+								":sessionId",
+								"element",
+								":elementId",
+								"value"
+							],
+							"variable": [
+								{
+									"key": "sessionId",
+									"value": "{{sessionId}}",
+									"description": "(Required) "
+								},
+								{
+									"key": "elementId",
+									"value": "{{elementId}}",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "element Clear",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(null)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/session/:sessionId/element/:elementId/clear",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"session",
+								":sessionId",
+								"element",
+								":elementId",
+								"clear"
+							],
+							"variable": [
+								{
+									"key": "sessionId",
+									"value": "{{sessionId}}",
+									"description": "(Required) "
+								},
+								{
+									"key": "elementId",
+									"value": "{{elementId}}",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Title",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(null)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/session/:sessionId/title",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"session",
+								":sessionId",
+								"title"
+							],
+							"variable": [
+								{
+									"key": "sessionId",
+									"value": "{{sessionId}}",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "close Window",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(null)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/session/:sessionId/window",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"session",
+								":sessionId",
+								"window"
+							],
+							"variable": [
+								{
+									"key": "sessionId",
+									"value": "{{sessionId}}",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create Window",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(null)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"handle\": \"<string>\",\n    \"type\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/session/:sessionId/window/new",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"session",
+								":sessionId",
+								"window",
+								"new"
+							],
+							"variable": [
+								{
+									"key": "sessionId",
+									"value": "{{sessionId}}",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"if (pm.info.requestName === \"Test steps\") {\r",
+					"    const parse = require('csv-parse/lib/sync')\r",
+					"    //Environmental variable where we copy-pasted the csv content\r",
+					"    const input = pm.variables.get(\"testStep\");\r",
+					"    const records = parse(input, {\r",
+					"        columns: true,\r",
+					"        skip_empty_lines: true\r",
+					"    })\r",
+					"\r",
+					"    pm.variables.set(\"testStepOrder\", records)\r",
+					"} else if (pm.info.requestName.includes(\"get\")) {\r",
+					"    pm.variables.set(pm.variables.get(\"key\"), pm.response.json().value)\r",
+					"    console.warn(pm.info.requestName, pm.variables.get(\"key\"), pm.variables.get(pm.variables.get(\"key\")))\r",
+					"}\r",
+					"\r",
+					"if(pm.info.requestName !== \"Pay from Bank Channel(Integration purposes)\" && \r",
+					"pm.info.requestName !== \"Login with Password(Integration purposes)\" &&\r",
+					"pm.info.requestName !== \"Login with Password\" &&\r",
+					"pm.info.requestName !== \"Pay from Bank Channel Negative\" &&\r",
+					"pm.info.requestName !== \"Pay from Bank Channel\" &&\r",
+					"pm.info.requestName !== \"Cancel  Transaction\"){\r",
+					"    \r",
+					"    let new_records = pm.variables.get(\"testStepOrder\");\r",
+					"\r",
+					"    let step = new_records.length ? new_records.shift() : undefined\r",
+					"\r",
+					"    if (step) {\r",
+					"        postman.setNextRequest(step.step)\r",
+					"        pm.variables.set(\"key\", step.key)\r",
+					"        pm.variables.set(\"value\", step.value)\r",
+					"        console.warn(step)\r",
+					"        if (step.step === \"wait\") {\r",
+					"            setTimeout(() => {\r",
+					"                let step = new_records.shift()\r",
+					"                pm.variables.set(\"key\", step.key)\r",
+					"                pm.variables.set(\"value\", step.value)\r",
+					"                postman.setNextRequest(step.step)\r",
+					"                console.warn(step)\r",
+					"            }, (pm.variables.get(\"key\") === \"seconds\") ? 1000 * step.value : step.value)\r",
+					"        } else if (step.step === \"assert\") {\r",
+					"            console.log(step)\r",
+					"            while (step && step.step === \"assert\") {\r",
+					"                pm.test(`Validate the value of ${pm.variables.get(\"key\")} is ${pm.variables.get(\"value\")}`, function () {\r",
+					"                    pm.expect(pm.variables.replaceIn('{{{{key}}}}')).to.be.eql(step.value)\r",
+					"                });\r",
+					"\r",
+					"                step = new_records.shift()\r",
+					"                if (step) {\r",
+					"                    pm.variables.set(\"key\", step.key)\r",
+					"                    pm.variables.set(\"value\", step.value)\r",
+					"                    postman.setNextRequest(step.step)\r",
+					"                }\r",
+					"            }\r",
+					"\r",
+					"            \r",
+					"        }\r",
+					"\r",
+					"    } else {\r",
+					"        postman.setNextRequest(null)\r",
+					"    }\r",
+					"\r",
+					"    pm.variables.set(\"testStepOrder\", new_records)\r",
+					"}\r",
+					"\r",
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "du_code",
+			"value": "VECO",
+			"type": "string"
+		},
+		{
+			"key": "account_number",
+			"value": "61404839971",
+			"type": "string"
+		},
+		{
+			"key": "amount",
+			"value": "93",
+			"type": "string"
+		},
+		{
+			"key": "payment_channel_Code",
+			"value": "BPIA",
+			"type": "string"
+		},
+		{
+			"key": "paymentChannelImplementationVersion",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "label",
+			"value": "VECO SME Minimum Amount BDO",
+			"type": "string"
+		},
+		{
+			"key": "TransactionID",
+			"value": ""
+		},
+		{
+			"key": "auth_token",
+			"value": ""
+		},
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:52450",
+			"type": "string"
+		},
+		{
+			"key": "PaymentURL",
+			"value": "https://app.bux.ph/test/bux_payment/8e15356973274df0bd8a7bbf1b447943",
+			"type": "string"
+		},
+		{
+			"key": "PaymentUsername",
+			"value": "input[placeholder='Username']",
+			"type": "string"
+		},
+		{
+			"key": "PaymentPassword",
+			"value": "input[placeholder='Password']",
+			"type": "string"
+		},
+		{
+			"key": "PaymentButton",
+			"value": "body > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > button:nth-child(3)",
+			"type": "string"
+		},
+		{
+			"key": "AuthorizeButton",
+			"value": "body > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > div:nth-child(2) > div:nth-child(6) > button:nth-child(1)\n",
+			"type": "string"
+		}
+	]
+}

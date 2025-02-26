@@ -1,0 +1,18 @@
+[
+  {
+    "label": "VECO SME Minimum Amount BPIA",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "95",
+    "paymentChannelCode": "BPIA",
+    "paymentChannelImplementationVersion": 1
+  },
+  {
+    "label": "VECO SME Minimum Amount UBPB",
+    "duCode": "VECO",
+    "accountNumber": "61404839971",
+    "amount": "95",
+    "paymentChannelCode": "UBPB",
+    "paymentChannelImplementationVersion": 1
+  }
+]
