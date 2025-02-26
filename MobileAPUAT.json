@@ -1,0 +1,57 @@
+{
+	"id": "9a6550c4-b2e2-4a1a-bac4-f41710d3484d",
+	"name": "MobileAP UAT",
+	"values": [
+		{
+			"key": "staticdatagateway",
+			"value": "internal-apdu-mobileap-be-stdata-uat-lb-1566517590.ap-southeast-1.elb.amazonaws.com",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "eventprocessor",
+			"value": "internal-apdu-mobileap-eventprocessor-uat-2141187735.ap-southeast-1.elb.amazonaws.com",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "paymentgateway",
+			"value": "internal-apdu-mobileap-be-payments-uat-223392390.ap-southeast-1.elb.amazonaws.com",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "analyticsgateway",
+			"value": "internal-apdu-mobileap-be-analytics-uat-340707210.ap-southeast-1.elb.amazonaws.com",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "paymentgatewaycriticaloperationskey",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "data",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "index",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "dataLoaded",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2025-01-17T01:09:26.506Z",
+	"_postman_exported_using": "Postman/11.28.3"
+}
