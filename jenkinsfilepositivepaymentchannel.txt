@@ -20,11 +20,14 @@ pipeline {
             }
         }
         stage('Archive Newman Report') {
-            post {
-                always {
-                    archiveArtifacts artifacts: '**/newman/*.html', fingerprint: true
-                }
+            steps {
+                archiveArtifacts artifacts: '**/newman/*.html', fingerprint: true
             }
+        }
+    }
+    post {
+        always {
+            echo "Pipeline execution completed!"
         }
     }
 }
