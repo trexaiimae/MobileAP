@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout Repository') {
+            steps {
+                git branch: 'main', url: 'https://github.com/trexaiimae/MobileAP.git'
+            }
+        }
+        stage('Install Newman') {
+            steps {
+                bat 'npm install -g newman newman-reporter-htmlextra'
+            }
+        }
+        stage('Run Postman Tests') {
+            steps {
+                bat '''
+                    cd /d "C:\Users\USER\Documents\G360\API\Automations\E-Payments API Automation Script"
+                    newman run QATESTING.postman_collection.json -d DUSMEsPositiveTestingV2.json -e UAT.SO.postman_environment.json -r htmlextra
+                '''
+            }
+        }
+        stage('Archive Newman Report') {
+            steps {
+                archiveArtifacts artifacts: '**/newman/*.html', fingerprint: true
+            }
+        }
+    }
+    post {
+        always {
+            echo "Pipeline execution completed!"
+        }
+    }
+}
