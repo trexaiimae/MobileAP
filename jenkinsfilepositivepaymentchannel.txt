@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout Repository') {
+            steps {
+                git branch: 'main', url: 'https://github.com/trexaiimae/MobileAP.git'
+            }
+        }
+        stage('Install Newman') {
+            steps {
+                sh 'npm install -g newman newman-reporter-htmlextra'
+            }
+        }
+        stage('Run Postman Tests') {
+            steps {
+                sh '''
+                    cd $WORKSPACE/API/Payment\ Channel\ Routes\ API\ Automation\ Script
+                    newman run QATESTINGPaymentChannelRoutes.json -d channelroutesdata.json -e MobileAPUAT.json -r htmlextra
+                '''
+            }
+        }
+        stage('Archive Newman Report') {
+            post {
+                always {
+                    archiveArtifacts artifacts: '**/newman/*.html', fingerprint: true
+                }
+            }
+        }
+    }
+}
