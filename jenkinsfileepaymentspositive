@@ -14,7 +14,7 @@ pipeline {
         stage('Run Postman Tests') {
             steps {
                 bat '''
-                    cd /d "C:\Users\USER\Documents\G360\API\Automations\E-Payments API Automation Script"
+                    cd /d "C:\\Users\\USER\\Documents\\G360\\API\\Automations\\E-Payments API Automation Script"
                     newman run QATESTING.postman_collection.json -d DUSMEsPositiveTestingV2.json -e UAT.SO.postman_environment.json -r htmlextra
                 '''
             }
