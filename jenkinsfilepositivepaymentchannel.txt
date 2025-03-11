@@ -8,13 +8,13 @@ pipeline {
         }
         stage('Install Newman') {
             steps {
-                sh 'npm install -g newman newman-reporter-htmlextra'
+                bat 'npm install -g newman newman-reporter-htmlextra'
             }
         }
         stage('Run Postman Tests') {
             steps {
-                sh '''
-                    cd $WORKSPACE/API/Payment\ Channel\ Routes\ API\ Automation\ Script
+                bat '''
+                    cd /d "C:\\Users\\USER\\Documents\\G360\\API\\Payment Channel Routes API Automation Script"
                     newman run QATESTINGPaymentChannelRoutes.json -d channelroutesdata.json -e MobileAPUAT.json -r htmlextra
                 '''
             }
